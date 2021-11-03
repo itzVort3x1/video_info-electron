@@ -15,10 +15,16 @@
         </form>
 
         <script>
+
+            const electron = require('electron');
+            // IPC = Inter process communication
+            const { ipcRenderer } = electron;
+
             document.querySelector('form').addEventListener('submit', (event) => {
                 event.preventDefault();
-                const file = document.querySelector('input').files[0];
-                console.log(file);
+                const { path } = document.querySelector('input').files[0];
+
+                ipcRenderer.send('video:submit', path);
             })
         </script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
